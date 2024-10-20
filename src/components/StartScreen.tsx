@@ -16,7 +16,7 @@ export default function StartScreen({ onStart }: StartScreenProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
         <div className="p-6">
           <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
             Quiz JonaMiX
@@ -25,7 +25,7 @@ export default function StartScreen({ onStart }: StartScreenProps) {
             <div>
               <label
                 htmlFor="playerName"
-                className="block pb-2 text-sm font-medium text-gray-700"
+                className="block pb-2 text-sm font-medium text-gray-700 dark:text-white"
               >
                 Nombre del jugador
               </label>
@@ -41,7 +41,7 @@ export default function StartScreen({ onStart }: StartScreenProps) {
             <div>
               <label
                 htmlFor="difficulty"
-                className="block pb-2 text-sm font-medium text-gray-700"
+                className="block pb-2 text-sm font-medium text-gray-700 dark:text-white"
               >
                 Nivel de dificultad
               </label>

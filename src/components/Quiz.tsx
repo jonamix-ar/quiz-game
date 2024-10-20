@@ -79,8 +79,9 @@ export default function Quiz() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="container mx-auto py-8">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+        
         <div className="p-6">
           <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
             Quiz JonaMiX

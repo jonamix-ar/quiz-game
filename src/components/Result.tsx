@@ -15,13 +15,13 @@ export default function Result({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
         <div className="p-6 text-center">
           <h2 className="text-3xl font-bold text-blue-600 mb-4">
             Resultado Final
           </h2>
-          <p className="text-xl mb-2 text-gray-800">Jugador: {playerName}</p>
-          <p className="text-xl mb-4 text-gray-800">
+          <p className="text-xl mb-2 text-gray-800 dark:text-white">Jugador: {playerName}</p>
+          <p className="text-xl mb-4 text-gray-800 dark:text-white">
             Tu puntuación:{" "}
             <span className="font-bold text-green-500">{score}</span> de {total}
           </p>
@@ -31,7 +31,7 @@ export default function Result({
               style={{ width: `${percentage}%` }}
             ></div>
           </div>
-          <p className="text-lg font-semibold text-gray-700 mb-6">
+          <p className="text-lg font-semibold text-gray-700 dark:text-white mb-6">
             Porcentaje de aciertos: {percentage.toFixed(2)}%
           </p>
           {percentage === 100 && (

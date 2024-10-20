@@ -56,7 +56,7 @@ export default function Question({
       <div className="text-sm font-medium text-gray-500">
         Pregunta {currentQuestion} de {totalQuestions}
       </div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
         {question.question}
       </h2>
       <div className="space-y-3">
@@ -87,7 +87,7 @@ export default function Question({
         className={`w-full py-3 px-6 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition-colors duration-300 ${
           selectedOption === null || isAnswered
             ? "bg-gray-300 cursor-not-allowed"
-            : "bg-blue-500 hover:bg-blue-600"
+            : "bg-purple-500 hover:bg-purple-600"
         }`}
       >
         {isAnswered ? "Siguiente" : "Confirmar respuesta"}
