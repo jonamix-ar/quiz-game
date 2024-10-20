@@ -3,18 +3,40 @@
 import { useState, useEffect } from "react";
 import Question from "@/components/Question";
 import Result from "@/components/Result";
+import StartScreen from "@/components/StartScreen";
+
+interface QuestionData {
+  id: number;
+  question: string;
+  options: { text: string; isCorrect: boolean }[];
+}
 
 export default function Quiz() {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<QuestionData[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
-    fetch("/api/questions")
-      .then((res) => res.json())
-      .then((data) => setQuestions(data));
-  }, []);
+    if (gameStarted) {
+      fetchQuestions();
+    }
+  }, [gameStarted, difficulty]);
+
+  const fetchQuestions = async () => {
+    const response = await fetch(`/api/questions?difficulty=${difficulty}`);
+    const data = await response.json();
+    setQuestions(data);
+  };
+
+  const handleStart = (name: string, diff: string) => {
+    setPlayerName(name);
+    setDifficulty(diff);
+    setGameStarted(true);
+  };
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) setScore(score + 1);
@@ -26,14 +48,35 @@ export default function Quiz() {
     }
   };
 
-  if (questions.length === 0)
+  const handleRestart = () => {
+    setScore(0);
+    setCurrentQuestionIndex(0);
+    setShowResult(false);
+    setGameStarted(false);
+  };
+
+  if (!gameStarted) {
+    return <StartScreen onStart={handleStart} />;
+  }
+
+  if (questions.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
+  }
 
-  if (showResult) return <Result score={score} total={questions.length} />;
+  if (showResult) {
+    return (
+      <Result
+        score={score}
+        total={questions.length}
+        playerName={playerName}
+        onRestart={handleRestart}
+      />
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

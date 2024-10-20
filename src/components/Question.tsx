@@ -1,19 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// Definimos la interfaz para una opción
 interface Option {
   text: string;
   isCorrect: boolean;
 }
 
-// Definimos la interfaz para una pregunta
 interface QuestionData {
   id: number;
   question: string;
   options: Option[];
 }
 
-// Definimos la interfaz para las props del componente Question
 interface QuestionProps {
   question: QuestionData;
   onAnswer: (isCorrect: boolean) => void;
@@ -29,12 +26,25 @@ export default function Question({
 }: QuestionProps) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState<Option[]>([]);
+
+  useEffect(() => {
+    setShuffledOptions(shuffleArray([...question.options]));
+  }, [question]);
+
+  const shuffleArray = (array: Option[]) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
   const handleSubmit = () => {
     if (selectedOption !== null && !isAnswered) {
       setIsAnswered(true);
       setTimeout(() => {
-        onAnswer(question.options[selectedOption].isCorrect);
+        onAnswer(shuffledOptions[selectedOption].isCorrect);
         setSelectedOption(null);
         setIsAnswered(false);
       }, 1000);
@@ -50,7 +60,7 @@ export default function Question({
         {question.question}
       </h2>
       <div className="space-y-3">
-        {question.options.map((option, index) => (
+        {shuffledOptions.map((option, index) => (
           <button
             key={index}
             onClick={() => !isAnswered && setSelectedOption(index)}
