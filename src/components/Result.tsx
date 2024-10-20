@@ -1,4 +1,11 @@
-export default function Result({ score, total }) {
+import React from "react";
+
+interface ResultProps {
+  score: number;
+  total: number;
+}
+
+export default function Result({ score, total }: ResultProps) {
   const percentage = (score / total) * 100;
 
   return (
