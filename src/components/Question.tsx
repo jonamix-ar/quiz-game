@@ -1,12 +1,33 @@
 import { useState } from "react";
 
+// Definimos la interfaz para una opción
+interface Option {
+  text: string;
+  isCorrect: boolean;
+}
+
+// Definimos la interfaz para una pregunta
+interface QuestionData {
+  id: number;
+  question: string;
+  options: Option[];
+}
+
+// Definimos la interfaz para las props del componente Question
+interface QuestionProps {
+  question: QuestionData;
+  onAnswer: (isCorrect: boolean) => void;
+  totalQuestions: number;
+  currentQuestion: number;
+}
+
 export default function Question({
   question,
   onAnswer,
   totalQuestions,
   currentQuestion,
-}) {
-  const [selectedOption, setSelectedOption] = useState(null);
+}: QuestionProps) {
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
   const handleSubmit = () => {
